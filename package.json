@@ -1,0 +1,26 @@
+{
+  "name": "playwright-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean:reports": "powershell -NoProfile -Command \"'allure-results','allure-report','test-results','playwright-report' | ForEach-Object { if (Test-Path $_) { Remove-Item -Recurse -Force $_ } }\"",
+    "test": "npm run clean:reports && playwright test",
+    "test:task114": "npm run clean:reports && playwright test tests/AutoComplete.spec.ts --project=chromium",
+    "test:report": "npm run clean:reports && playwright test && npm run allure:generate",
+    "test:task114:report": "npm run clean:reports && playwright test tests/AutoComplete.spec.ts --project=chromium && npm run allure:generate",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "allure:serve": "allure serve allure-results"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2",
+    "allure-commandline": "^2.42.0",
+    "allure-playwright": "^2.15.1"
+  }
+}
